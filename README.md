@@ -1,7 +1,7 @@
 # XLog通用安卓框架  
 
 ### 图片演示  
-![image](https://github.com/cl-6666/xlog/blob/master/ximg/img.jpg)
+![image](https://github.com/cl-6666/xlog/blob/master/img.png)
 
 ### 库引用  
 ```
