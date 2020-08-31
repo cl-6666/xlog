@@ -1,0 +1,3 @@
+include ':log_lib'
+include ':app'
+rootProject.name = "xlog"
