@@ -1,11 +1,14 @@
 # XLog通用安卓框架  
 
+### 图片演示  
+<img src="https://github.com/cl-6666/xlog/blob/master/img/img.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2EyMTQwMjQ0NzU=,size_16,color_FFFFFF,t_70" width=280/>
+
 ### 库引用  
 ```
 implementation 'com.github.cl-6666:xlog:v1.0.0'
 ```  
 ### 使用介绍  
-```
+```java
 kotlin初始化案例  
     class MApplication : Application() {
     override fun onCreate() {
