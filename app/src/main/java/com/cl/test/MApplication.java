@@ -30,11 +30,12 @@ public class MApplication extends Application {
 
             @Override
             public boolean enable() {
-                return super.enable();
+                return true;
             }
 
             @Override
             public JsonParser injectJsonParser() {
+                //TODO 根据需求自行添加
                 return super.injectJsonParser();
             }
 
