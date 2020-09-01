@@ -14,7 +14,7 @@ kotlin初始化案例
     override fun onCreate() {
         super.onCreate()
         XLogManager.init(
-            object : HiLogConfig() {
+            object : XLogConfig() {
                 override fun injectJsonParser(): JsonParser? {
                     return JsonParser { src -> Gson().toJson(src) }
                 }
