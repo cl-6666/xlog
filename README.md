@@ -13,7 +13,7 @@ kotlin初始化案例
     class MApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        HiLogManager.init(
+        XLogManager.init(
             object : HiLogConfig() {
                 override fun injectJsonParser(): JsonParser? {
                     return JsonParser { src -> Gson().toJson(src) }
@@ -35,8 +35,8 @@ kotlin初始化案例
                     return 5
                 }
             },
-            HiConsolePrinter(),
-            HiFilePrinter.getInstance(applicationContext.cacheDir.absolutePath, 0)
+            XConsolePrinter(),
+            XFilePrinter.getInstance(applicationContext.cacheDir.absolutePath, 0)
         )
     }
 }  
