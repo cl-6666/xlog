@@ -1,7 +1,7 @@
 # XLog通用安卓框架  
 
 ### 图片演示  
-<img src="https://github.com/cl-6666/xlog/blob/master/img.png"  alt="演示"/><br/>  
+<img src="https://github.com/cl-6666/xlog/blob/master/img.png" width="300" height="500" alt="演示"/><br/>  
 
 
 ### 库引用  
