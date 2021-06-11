@@ -41,7 +41,7 @@ public class MApplication extends Application {
 
             @Override
             public boolean includeThread() {
-                return true;
+                return false;
             }
 
             @Override

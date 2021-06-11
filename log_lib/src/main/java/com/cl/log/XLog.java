@@ -86,12 +86,14 @@ public class XLog {
         if (config.includeThread()) {
             String threadInfo = XLogConfig.HI_THREAD_FORMATTER.format(Thread.currentThread());
             sb.append(threadInfo).append("\n");
+
+            if (config.stackTraceDepth() > 0) {
+                String stackTrace = XLogConfig.HI_STACK_TRACE_FORMATTER.format(
+                        XStackTraceUtil.getCroppedRealStackTrack(new Throwable().getStackTrace(), HI_LOG_PACKAGE, config.stackTraceDepth()));
+                sb.append(stackTrace).append("\n");
+            }
         }
-        if (config.stackTraceDepth() > 0) {
-            String stackTrace = XLogConfig.HI_STACK_TRACE_FORMATTER.format(
-                    XStackTraceUtil.getCroppedRealStackTrack(new Throwable().getStackTrace(), HI_LOG_PACKAGE, config.stackTraceDepth()));
-            sb.append(stackTrace).append("\n");
-        }
+
         String body = parseBody(contents, config);
         if (body != null) {//替换转义字符\
             body = body.replace("\\\"", "\"");
