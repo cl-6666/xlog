@@ -22,7 +22,7 @@ V1.0.0：
 
 ### 库引用  
 ```
-implementation 'com.github.cl-6666:xlog:v1.0.0'
+implementation 'com.github.cl-6666:xlog:V2.0.0'
 
 jdk11依赖方式
 需要在settings.gradle设置
