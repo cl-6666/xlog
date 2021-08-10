@@ -23,7 +23,8 @@ V1.0.0：
 ### 库引用  
 ```
 implementation 'com.github.cl-6666:xlog:V2.0.0'
-
+```  
+```
 jdk11依赖方式
 需要在settings.gradle设置
 dependencyResolutionManagement {
@@ -35,8 +36,7 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-
-```  
+```
 ### 使用介绍  
 ```java
 kotlin初始化案例  
