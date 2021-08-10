@@ -4,6 +4,22 @@
 <img src="https://github.com/cl-6666/xlog/blob/master/img.png" width="300" height="500" alt="演示"/><br/>  
 
 
+版本更新历史：  
+[![](https://jitpack.io/v/cl-6666/xlog.svg)](https://jitpack.io/#cl-6666/xlog) 
+
+
+V2.0.0：   
+修复堆栈信息显示问题
+
+V1.0.0：    
+1.能够打印堆栈信息  
+2.支持任何数据类型的打印  
+3.能够实现日志可视化   
+4.能够实现文件打印模块   
+5.支持不同打印器的插拔  
+
+
+
 ### 库引用  
 ```
 implementation 'com.github.cl-6666:xlog:v1.0.0'
