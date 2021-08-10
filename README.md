@@ -7,6 +7,19 @@
 ### 库引用  
 ```
 implementation 'com.github.cl-6666:xlog:v1.0.0'
+
+jdk11依赖方式
+需要在settings.gradle设置
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 ```  
 ### 使用介绍  
 ```java
