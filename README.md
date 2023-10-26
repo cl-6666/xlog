@@ -40,6 +40,18 @@ dependencyResolutionManagement {
     }
 }
 ```
+### 构建参数介绍  
+------  
+  参数方法 | 参数介绍 |
+--------|------|
+setGlobalTag | 全局的tag  |
+setWhetherThread | 是否包含线程信息  |
+setWhetherToPrint | 日志是否打开  |
+setStoreLog | 是否存储日志到本地 |
+setStackDeep | 堆栈的深度  |
+setInjectSequence | 外界注入对象的序列化  |
+------  
+
 ### 初始化介绍  
 ```java
 在Application里面初始化
