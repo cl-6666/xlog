@@ -31,8 +31,8 @@ public class MApplication extends Application {
                 .setWhetherThread(true)
                 //Xlog是否可用
                 .setWhetherToPrint(true)
-                //是否存储日志到本地
-                .setStoreLog(true)
+                //是否存储日志到本地  log文件的有效时长，单位毫秒，<=0表示一直有效
+                .setStoreLog(true,0)
                 //堆栈的深度
                 .setStackDeep(5)
                 .setInjectSequence(new XLogConfig.JsonParser() {
