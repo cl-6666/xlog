@@ -94,5 +94,10 @@ class MainActivity : AppCompatActivity() {
         XLog.a("9900")
     }
 }
-
 ```
+### 日志保存截图
+```java
+假如想把日志文件上传到服务器，可以直接传入路径即可，框架没有做上传相关逻辑
+XLog.i("当前保存log的日志路径：" + XFilePrinter.getInstance().logPath)
+```
+<img src="https://github.com/cl-6666/xlog/blob/master/imglog.png" width="700" height="500" alt="演示"/><br/>  
