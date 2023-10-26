@@ -9,20 +9,25 @@ public class XConsolePrinter implements XLogPrinter {
 
     @Override
     public void print(@NonNull XLogConfig config, int level, String tag, @NonNull String printString) {
-        int len = printString.length();
-        int countOfSub = len / MAX_LEN;
+        int length = printString.length();
+        //一共有countOfSub行
+        int countOfSub = length/ XLogConfig.MAX_LEN;
+
         if (countOfSub > 0) {
-            StringBuilder log = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             int index = 0;
-            for (int i = 0; i < countOfSub; i++) {
-                log.append(printString.substring(index, index + MAX_LEN));
-                index += MAX_LEN;
+            for (int x = 0; x < countOfSub; x++) {
+                //裁剪字符串
+                String substring = printString.substring(index, index + XLogConfig.MAX_LEN);
+                sb.append(substring);
+                index += XLogConfig.MAX_LEN;
             }
-            if (index != len) {
-                log.append(printString.substring(index, len));
+            if(index!=length){
+                sb.append(printString.substring(index,length));
             }
-            Log.println(level, tag, log.toString());
-        } else {
+            //调用官方的Log打印拼接好的字符串
+            Log.println(level, tag, sb.toString());
+        }else{
             Log.println(level, tag, printString);
         }
     }

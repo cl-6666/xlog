@@ -1,4 +1,4 @@
-package com.cl.log;
+package com.cl.log.util;
 
 import android.content.Context;
 import android.content.res.Resources;

@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cl.log.util.MainHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +45,17 @@ public class XViewPrinter implements XLogPrinter {
     }
 
     @Override
-    public void print(@NonNull XLogConfig config, int level, String tag, @NonNull String printString) {
+    public void print(@NonNull XLogConfig config, final int level, final String tag, final @NonNull String printString) {
 
-        // 将log展示添加到recycleView
-        adapter.addItem(new XLogMo(System.currentTimeMillis(), level, tag, printString));
-
-        // 滚动到对应的位置
-        recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
+        MainHandler.getInstance().post(new Runnable() {
+            @Override
+            public void run() {
+                // 将log展示添加到recycleView
+                adapter.addItem(new XLogMo(System.currentTimeMillis(), level, tag, printString));
+                // 滚动到对应的位置
+                recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
+            }
+        });
     }
 
     private static class LogAdapter extends RecyclerView.Adapter<LogViewHolder> {

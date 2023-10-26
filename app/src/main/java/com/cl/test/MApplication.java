@@ -6,6 +6,7 @@ import com.cl.log.XConsolePrinter;
 import com.cl.log.XFilePrinter;
 import com.cl.log.XLogConfig;
 import com.cl.log.XLogManager;
+import com.google.gson.Gson;
 
 
 /**
@@ -22,34 +23,26 @@ public class MApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        XLogManager.init(new XLogConfig(){
-            @Override
-            public String getGlobalTag() {
-                return "MApplication";
-            }
+        //初始化日志框架
+        XLogConfig logConfig = new XLogConfig.Builder()
+                //全局TAG
+                .setGlobalTag("TAG")
+                //是否包含线程信息
+                .setWhetherThread(true)
+                //Xlog是否可用
+                .setWhetherToPrint(true)
+                //是否存储日志到本地
+                .setStoreLog(true)
+                //堆栈的深度
+                .setStackDeep(5)
+                .setInjectSequence(new XLogConfig.JsonParser() {
+                    @Override
+                    public String toJson(Object src) {
+                        String json = new Gson().toJson(src);
+                        return json;
+                    }
+                }).build();
 
-            @Override
-            public boolean enable() {
-                return true;
-            }
-
-            @Override
-            public JsonParser injectJsonParser() {
-                //TODO 根据需求自行添加
-                return super.injectJsonParser();
-            }
-
-            @Override
-            public boolean includeThread() {
-                return false;
-            }
-
-            @Override
-            public int stackTraceDepth() {
-                return 5;
-            }
-        },new XConsolePrinter(),XFilePrinter.getInstance(getApplicationContext().getCacheDir().getAbsolutePath(),0));
-
-
+        XLogManager.getInstance().init(logConfig, new XConsolePrinter());
     }
 }

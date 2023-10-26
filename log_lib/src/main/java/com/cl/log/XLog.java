@@ -1,6 +1,9 @@
 package com.cl.log;
 
+
 import androidx.annotation.NonNull;
+
+import com.cl.log.util.XStackTraceUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -78,36 +81,50 @@ public class XLog {
         log(XLogManager.getInstance().getConfig(), type, tag, contents);
     }
 
+    /**
+     * log打印
+     */
     public static void log(@NonNull XLogConfig config, @XLogType.TYPE int type, @NonNull String tag, Object... contents) {
+        //如果LogKit是关闭的,直接return
         if (!config.enable()) {
             return;
         }
+
         StringBuilder sb = new StringBuilder();
+        //拼接线程信息
         if (config.includeThread()) {
+            //对当前的线程进行信息的格式化
             String threadInfo = XLogConfig.HI_THREAD_FORMATTER.format(Thread.currentThread());
             sb.append(threadInfo).append("\n");
-
-            if (config.stackTraceDepth() > 0) {
-                String stackTrace = XLogConfig.HI_STACK_TRACE_FORMATTER.format(
-                        XStackTraceUtil.getCroppedRealStackTrack(new Throwable().getStackTrace(), HI_LOG_PACKAGE, config.stackTraceDepth()));
-                sb.append(stackTrace).append("\n");
-            }
         }
 
-        String body = parseBody(contents, config);
+        //拼接堆栈信息
+        if (config.stackTraceDepth() > 0) {
+            //获取堆栈信息
+            StackTraceElement[] traceElements = XStackTraceUtil.getCroppedRealStackTrack(new Throwable().getStackTrace(), HI_LOG_PACKAGE, config.stackTraceDepth());
+            //格式化堆栈信息
+            String traceInfo = XLogConfig.HI_STACK_TRACE_FORMATTER.format(traceElements);
+            sb.append(traceInfo).append("\n");
+        }
+
+
+        //拼接contents信息
+        String body =  parseBody(contents,config);
         if (body != null) {//替换转义字符\
             body = body.replace("\\\"", "\"");
         }
         sb.append(body);
-        List<XLogPrinter> printers =
-                config.printers() != null ? Arrays.asList(config.printers()) : XLogManager.getInstance().getPrinters();
-        if (printers == null) {
+
+        //拿到初始时候自己定义的打印器,然后进行打印,看是打印到文件,还是控制台,还是文件中
+        List<XLogPrinter> printerList = config.printers() !=null ? Arrays.asList(config.printers()) : XLogManager.getInstance().getPrinters();
+        if (printerList == null) {
             return;
         }
         //打印log
-        for (XLogPrinter printer : printers) {
-            printer.print(config, type, tag, sb.toString());
+        for(XLogPrinter printer:printerList){
+            printer.print(config,type,tag,sb.toString());
         }
+
     }
 
 

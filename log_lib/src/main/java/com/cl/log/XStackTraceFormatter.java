@@ -6,23 +6,28 @@ package com.cl.log;
 public class XStackTraceFormatter implements XLogFormatter<StackTraceElement[]> {
     @Override
     public String format(StackTraceElement[] stackTrace) {
-        StringBuilder sb = new StringBuilder(128);
         if (stackTrace == null || stackTrace.length == 0) {
             return null;
         } else if (stackTrace.length == 1) {
-            return "\t─ " + stackTrace[0].toString();
+            return "\t-" + stackTrace[0].toString();
         } else {
-            for (int i = 0, len = stackTrace.length; i < len; i++) {
-                if (i == 0) {
+            StringBuilder sb = new StringBuilder();
+            //堆栈信息的长度
+            int len = stackTrace.length;
+            for (int x = 0; x < len; x++) {
+                //索引为0
+                if (x == 0) {
                     sb.append("stackTrace:  \n");
                 }
-                if (i != len - 1) {
-                    sb.append("\t├ ");
-                    sb.append(stackTrace[i].toString());
-                    sb.append("\n");
-                } else {
+                //索引为最后一位
+                if (x == len - 1) {
                     sb.append("\t└ ");
-                    sb.append(stackTrace[i].toString());
+                    sb.append(stackTrace[x].toString());
+                } else {
+                    //中间的元素
+                    sb.append("\t├ ");
+                    sb.append(stackTrace[x].toString());
+                    sb.append("\n");
                 }
             }
             return sb.toString();

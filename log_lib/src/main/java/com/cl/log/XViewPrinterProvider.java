@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cl.log.util.XDisplayUtil;
+
 public class XViewPrinterProvider {
     private FrameLayout rootView;
     private View floatingView;

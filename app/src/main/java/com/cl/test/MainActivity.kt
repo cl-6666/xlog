@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         viewPrinter = XViewPrinter(this)
         findViewById<View>(R.id.btn_log).setOnClickListener {
             printLog()
+//            XLog.i("当前保存log的日志路径：" + XFilePrinter.getInstance().logPath)
         }
         viewPrinter!!.viewProvider.showFloatingView()
 

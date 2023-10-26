@@ -42,15 +42,28 @@ public class XFilePrinter implements XLogPrinter {
         return instance;
     }
 
+    public static synchronized XFilePrinter getInstance() {
+        if (instance == null) {
+           throw new RuntimeException("XFilePrinter还未初始化");
+        }
+        return instance;
+    }
+
 
     private XFilePrinter(String logPath, long retentionTime) {
-        this.logPath = logPath;
+        this.logPath = new File(logPath,"ali_xlog").getPath();
         this.retentionTime = retentionTime;
         this.writer = new LogWriter();
         this.worker = new PrintWorker();
         cleanExpiredLog();
     }
 
+    /**
+     * 日志的文件路径
+     */
+    public String getLogPath() {
+        return logPath+"/"+writer.getPreFileName();
+    }
 
     @Override
     public void print(@NonNull XLogConfig config, int level, String tag, @NonNull String printString) {
