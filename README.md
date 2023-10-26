@@ -8,7 +8,7 @@
 [![](https://jitpack.io/v/cl-6666/xlog.svg)](https://jitpack.io/#cl-6666/xlog) 
 
 V3.0.0：   
-1.初始化参数配置优化
+1.初始化参数配置优化  
 2.本地日志存储本地优化
 
 V2.0.0：   
