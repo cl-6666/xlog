@@ -7,6 +7,9 @@
 版本更新历史：  
 [![](https://jitpack.io/v/cl-6666/xlog.svg)](https://jitpack.io/#cl-6666/xlog) 
 
+V3.0.0：   
+1.初始化参数配置优化
+2.本地日志存储本地优化
 
 V2.0.0：   
 修复堆栈信息显示问题
@@ -22,7 +25,7 @@ V1.0.0：
 
 ### 库引用  
 ```
-implementation 'com.github.cl-6666:xlog:V2.0.0'
+  implementation 'com.github.cl-6666:xlog:v3.0.0'
 ```  
 ```
 jdk11依赖方式
@@ -37,77 +40,35 @@ dependencyResolutionManagement {
     }
 }
 ```
-### 使用介绍  
+### 初始化介绍  
 ```java
-kotlin初始化案例  
-    class MApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        XLogManager.init(
-            object : XLogConfig() {
-                override fun injectJsonParser(): JsonParser? {
-                    return JsonParser { src -> Gson().toJson(src) }
-                }
+在Application里面初始化
+        //初始化日志框架
+        XLogConfig logConfig = new XLogConfig.Builder()
+                //全局TAG
+                .setGlobalTag("TAG")
+                //是否包含线程信息
+                .setWhetherThread(true)
+                //Xlog是否可用
+                .setWhetherToPrint(true)
+                //是否存储日志到本地  log文件的有效时长，单位毫秒，<=0表示一直有效
+                .setStoreLog(true,0)
+                //堆栈的深度
+                .setStackDeep(5)
+                .setInjectSequence(new XLogConfig.JsonParser() {
+                    @Override
+                    public String toJson(Object src) {
+                        String json = new Gson().toJson(src);
+                        return json;
+                    }
+                }).build();
 
-                override fun getGlobalTag(): String {
-                    return "MApplication"
-                }
+        XLogManager.getInstance().init(logConfig, new XConsolePrinter());
 
-                override fun enable(): Boolean {
-                    return true
-                }
+```
 
-                override fun includeThread(): Boolean {
-                    return true
-                }
-
-                override fun stackTraceDepth(): Int {
-                    return 5
-                }
-            },
-            XConsolePrinter(),
-            XFilePrinter.getInstance(applicationContext.cacheDir.absolutePath, 0)
-        )
-    }
-}  
-    
-    
-Java初始化案例  
-  public class MApplication extends Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        XLogManager.init(new XLogConfig(){
-            @Override
-            public String getGlobalTag() {
-                return "MApplication";
-            }
-
-            @Override
-            public boolean enable() {
-                return true;
-            }
-
-            @Override
-            public JsonParser injectJsonParser() {
-                //TODO 根据需求自行添加
-                return super.injectJsonParser();
-            }
-
-            @Override
-            public boolean includeThread() {
-                return true;
-            }
-
-            @Override
-            public int stackTraceDepth() {
-                return 5;
-            }
-        },new XConsolePrinter(),XFilePrinter.getInstance(getApplicationContext().getCacheDir().getAbsolutePath(),0));
-    }
-}
-
-界面日志显示演示：  
+### 使用介绍  
+```java 
 class MainActivity : AppCompatActivity() {
 
     var viewPrinter: XViewPrinter? = null
