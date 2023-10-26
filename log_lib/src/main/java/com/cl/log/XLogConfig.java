@@ -24,6 +24,8 @@ public class XLogConfig {
     private JsonParser injectSequence;
     //是否存储日志到本地
     private boolean storeLog;
+    //本地日志保存多久
+    private long retentionTime;
 
     public XLogConfig(Builder builder) {
         this.globalTag = builder.globalTag;
@@ -49,6 +51,13 @@ public class XLogConfig {
      */
     public boolean getStoreLog() {
         return storeLog;
+    }
+
+    /**
+     * log文件的有效时长，单位毫秒，<=0表示一直有效
+     */
+    public long getRetentionTime() {
+        return retentionTime;
     }
 
     /**
@@ -104,6 +113,7 @@ public class XLogConfig {
         private int stackDeep = 5;
         private JsonParser injectSequence;
         private boolean storeLog=false;
+        private long retentionTime=0;
 
         public Builder setGlobalTag(String globalTag) {
             this.globalTag = globalTag;
@@ -130,8 +140,9 @@ public class XLogConfig {
             return this;
         }
 
-        public Builder setStoreLog(boolean storeLog) {
+        public Builder setStoreLog(boolean storeLog,long retentionTime) {
             this.storeLog = storeLog;
+            this.retentionTime = retentionTime;
             return this;
         }
         public XLogConfig build() {

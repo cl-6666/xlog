@@ -37,7 +37,7 @@ public class XLogManager {
         //是否保存日志到本地
         if (config.getStoreLog()){
             this.printers.add(XFilePrinter.getInstance(AppGlobal.getInstance().getCacheDir().getAbsolutePath()
-                    , 0));
+                    , config.getRetentionTime()));
         }
     }
 
