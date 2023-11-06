@@ -2,8 +2,6 @@ package com.cl.log;
 
 import androidx.annotation.NonNull;
 
-import com.cl.log.util.AppGlobal;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +34,7 @@ public class XLogManager {
         this.printers.addAll(Arrays.asList(printers));
         //是否保存日志到本地
         if (config.getStoreLog()){
-            this.printers.add(XFilePrinter.getInstance(AppGlobal.getInstance().getCacheDir().getAbsolutePath()
+            this.printers.add(XFilePrinter.getInstance(config.getLogAddress()
                     , config.getRetentionTime()));
         }
     }

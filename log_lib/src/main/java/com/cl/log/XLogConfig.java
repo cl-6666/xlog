@@ -1,5 +1,7 @@
 package com.cl.log;
 
+import com.cl.log.util.AppGlobal;
+
 /**
  * 项目：xlog
  * 作者：Arry
@@ -26,6 +28,8 @@ public class XLogConfig {
     private boolean storeLog;
     //本地日志保存多久
     private long retentionTime;
+    //本地日志存储地址
+    private String logAddress = AppGlobal.getInstance().getCacheDir().getAbsolutePath();
 
     public XLogConfig(Builder builder) {
         this.globalTag = builder.globalTag;
@@ -58,6 +62,13 @@ public class XLogConfig {
      */
     public long getRetentionTime() {
         return retentionTime;
+    }
+
+    /**
+     * 存储日志到指定位置
+     */
+    public String getLogAddress() {
+        return logAddress;
     }
 
     /**
@@ -112,8 +123,9 @@ public class XLogConfig {
         //堆栈的深度
         private int stackDeep = 5;
         private JsonParser injectSequence;
-        private boolean storeLog=false;
-        private long retentionTime=0;
+        private boolean storeLog = false;
+        private long retentionTime = 0;
+        private String logAddress;
 
         public Builder setGlobalTag(String globalTag) {
             this.globalTag = globalTag;
@@ -140,11 +152,19 @@ public class XLogConfig {
             return this;
         }
 
-        public Builder setStoreLog(boolean storeLog,long retentionTime) {
+        public Builder setStoreLog(boolean storeLog, long retentionTime) {
             this.storeLog = storeLog;
             this.retentionTime = retentionTime;
             return this;
         }
+
+        public Builder setStoreLog(boolean storeLog, long retentionTime, String logAddress) {
+            this.storeLog = storeLog;
+            this.retentionTime = retentionTime;
+            this.logAddress = logAddress;
+            return this;
+        }
+
         public XLogConfig build() {
             return new XLogConfig(this);
         }
