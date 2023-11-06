@@ -39,6 +39,13 @@ public class XLogManager {
         }
     }
 
+    /**
+     * 支持任意地方日志打开的通道
+     */
+    public void openLog(String logAddress, long retentionTime) {
+        printers.add(XFilePrinter.getInstance(logAddress, retentionTime));
+    }
+
     public XLogConfig getConfig() {
         check();
         return config;
