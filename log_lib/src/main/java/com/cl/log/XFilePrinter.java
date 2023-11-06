@@ -23,7 +23,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class XFilePrinter implements XLogPrinter {
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
-    private final String logPath;
+    private String logPath;
     private final long retentionTime;
     private LogWriter writer;
     private volatile PrintWorker worker;
@@ -56,6 +56,13 @@ public class XFilePrinter implements XLogPrinter {
         this.writer = new LogWriter();
         this.worker = new PrintWorker();
         cleanExpiredLog();
+    }
+
+    /**
+     * 从新设置logPath存储路径
+     */
+    public void setLogPath(String logPath) {
+        this.logPath = new File(logPath, "ali_xlog").getPath();
     }
 
     /**
