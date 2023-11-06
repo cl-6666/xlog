@@ -7,6 +7,9 @@
 版本更新历史：  
 [![](https://jitpack.io/v/cl-6666/xlog.svg)](https://jitpack.io/#cl-6666/xlog) 
 
+V3.1.0：   
+1.日志存储地址对外设置开放
+
 V3.0.0：   
 1.初始化参数配置优化  
 2.本地日志存储本地优化
@@ -25,7 +28,7 @@ V1.0.0：
 
 ### 库引用  
 ```
-  implementation 'com.github.cl-6666:xlog:v3.0.0'
+  implementation 'com.github.cl-6666:xlog:v3.1.0'
 ```  
 ```
 jdk11依赖方式
